@@ -12,8 +12,8 @@ const gameArea = {
     canvas : document.querySelector('canvas'),
    // CREATES CANVAS
     start : function() {
-        this.canvas.width = 480
-        this.canvas.height = 270
+        this.canvas.width = 900
+        this.canvas.height = 500
         this.context = this.canvas.getContext('2d')
         document.body.insertBefore(this.canvas, document.body.childNodes[0]),
         this.frameNo = 0
@@ -83,11 +83,11 @@ function updateGameArea() {
     gameArea.clear()
     gameArea.frameNo += 1
     // CREATES MULTIPLE OBSTACLES EVERY 150TH FRAME
-    if (gameArea.frameNo == 1 || everyInterval(150)) {
+    if (gameArea.frameNo == 1 || everyInterval(200)) {
         x = gameArea.canvas.width;
-        y = gameArea.canvas.height - 150
-        dementors.push(new gamePiece(10, 200, 'black', x, y))
-        dementors.push(new gamePiece(10, 50, 'black', x, 0)) //makes upside obstacle
+        y = gameArea.canvas.height - 250
+        dementors.push(new gamePiece(10, 300, 'black', x, y))
+        dementors.push(new gamePiece(10, 100, 'black', x, 0)) //makes upside obstacle
         
     }
     //MOVES OBSTACLES TOWARDS PLAYER
