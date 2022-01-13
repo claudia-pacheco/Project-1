@@ -1,14 +1,19 @@
+const startBtn = document.querySelector('.startBtn')
+startBtn.addEventListener('click', game )
+
+const songAudio = document.querySelector("audioBtn")
+
+function game () {
 let harryPotter
 let dementors = []
 
 
 function startGame() {
-    
+
     harryPotter = new gamePiece(85, 85, 'harrypotter.png', 10, 120, 'image') // CREATES HARRY WITH PICTURE
     gameArea.start()
     
 }
-
 
 const gameArea = {
     canvas : document.querySelector('canvas'),
@@ -64,10 +69,10 @@ function gamePiece(width, height, color, x, y, type){
     // CHECKS FOR COLLISION 
     this.collisionWith = function(obstacle) {
     // SETS ALL SIDES OF PLAYER + OBSTACLES 
-        const gamePieceLeft = this.x - 5
-        const gamePieceRight = (this.x + (this.width)) - 5
-        const gamePieceTop = this.y - 5
-        const gamePieceBottom = (this.y + (this.height)) - 5
+        const gamePieceLeft = this.x + 20
+        const gamePieceRight = (this.x + (this.width)) - 20
+        const gamePieceTop = this.y + 20
+        const gamePieceBottom = (this.y + (this.height)) - 20
 
         const obstacleLeft = obstacle.x;
         const obstacleRight = obstacle.x + (obstacle.width);
@@ -98,16 +103,17 @@ function updateGameArea() {
     // CREATES MULTIPLE OBSTACLES EVERY 550TH FRAME
     if (gameArea.frameNo == 1 || everyInterval(550)) {
         x = gameArea.canvas.width
-        minHeight = 35
-        maxHeight = 350
+        minHeight = 100
+        maxHeight = 450
         height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight) // creates random height
 
         minGap = 100
         maxGap = 200 
-        gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap) // creates random gap between the top and bottom obsttacle
+        gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap) // creates random gap between the top and bottom obstacle
       
-        dementors.push(new gamePiece(10, height, 'black', x, 0)) //makes upside down  obstacle
-        dementors.push(new gamePiece(10, x - height - gap, 'black', x, height + gap)) 
+        dementors.push(new gamePiece(250, height, 'DEMENTOR.png', x, 0, 'image')) 
+        dementors.push(new gamePiece(250, height, 'pngegg.png', x + 50, 0, 'image'))//makes upside down  obstacle
+        // dementors.push(new gamePiece(200, x - height - gap, 'pngegg.png', x, height + gap, 'image')) //NOT WORKING
         
     }
     //MOVES OBSTACLES TOWARDS PLAYER
@@ -127,38 +133,44 @@ function everyInterval(n) {
 function handleKeydown(event) {
     // MOVES LEFT
   if (event.code === 'ArrowLeft') {
-    harryPotter.speedX = -2
+    harryPotter.speedX = -5
   }
    // MOVES UP
   if (event.code === 'ArrowRight') {
-    harryPotter.speedX = 2
+    harryPotter.speedX = 5
   }
    // MOVES UP
   if (event.code === 'ArrowUp') {
-    harryPotter.speedY = -2
+    harryPotter.speedY = -5
   }
    // MOVES DOWN
   if (event.code === 'ArrowDown') {
-    harryPotter.speedY = 2
+    harryPotter.speedY = 5
   }
 }
 
 function handleKeyup(event) {
     // STOPS MOVING IN EITHER DIRECTION IF EITHER KEYS AREN'T PRESSED
+
+    //FIXED MOVING AROUND
   if (event.code === 'ArrowLeft') {
     harryPotter.speedX = 0
   }
   if (event.code === 'ArrowRight') {
-    harryPotter.speedY = 0
+    harryPotter.speedX = 0
   }
     if (event.code === 'ArrowUp') {
-    harryPotter.speedY = -2
+    harryPotter.speedY = -0
   }
   if (event.code === 'ArrowDown') {
-    harryPotter.speedY = 2
+    harryPotter.speedY = 0
   }
 }
 
 document.addEventListener('keydown', handleKeydown)
 document.addEventListener('keyup', handleKeyup)
+
 startGame()
+}
+
+

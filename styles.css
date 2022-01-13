@@ -7,7 +7,16 @@ position:absolute;
     
 }
 body {
-    background: url('dis.png');
-    background-repeat: no-repeat;
+    background: url('dis.png') no-repeat center center fixed;
     background-size: cover;
+}
+.header-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+aside {
+    text-align: right;
+    margin-right: 20px;
 }
