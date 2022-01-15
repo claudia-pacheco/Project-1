@@ -1,15 +1,13 @@
 const startBtn = document.querySelector('.startBtn')
 startBtn.addEventListener('click', game )
 
-const songAudio = document.querySelector("audioBtn")
+const songAudio = document.querySelector("audioBtn") // grabs audio
 
 function game () {
 let harryPotter
 let dementors = []
 
-
 function startGame() {
-
     harryPotter = new gamePiece(85, 85, 'harrypotter.png', 10, 120, 'image') // CREATES HARRY WITH PICTURE
     gameArea.start()
     
@@ -74,10 +72,10 @@ function gamePiece(width, height, color, x, y, type){
         const gamePieceTop = this.y + 20
         const gamePieceBottom = (this.y + (this.height)) - 20
 
-        const obstacleLeft = obstacle.x;
-        const obstacleRight = obstacle.x + (obstacle.width);
-        const obstacleTop = obstacle.y;
-        const obstacleBottom = obstacle.y + (obstacle.height);
+        const obstacleLeft = obstacle.x + 80
+        const obstacleRight = obstacle.x + (obstacle.width) - 80
+        const obstacleTop = obstacle.y + 20
+        const obstacleBottom = obstacle.y + (obstacle.height) - 30
     
         let collision = true
         if ((gamePieceBottom < obstacleTop) ||
@@ -103,19 +101,12 @@ function updateGameArea() {
     // CREATES MULTIPLE OBSTACLES EVERY 550TH FRAME
     if (gameArea.frameNo == 1 || everyInterval(550)) {
         x = gameArea.canvas.width
-        minHeight = 100
+        minHeight = 0
         maxHeight = 450
-        height = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight) // creates random height
-
-        minGap = 100
-        maxGap = 200 
-        gap = Math.floor(Math.random()*(maxGap-minGap+1)+minGap) // creates random gap between the top and bottom obstacle
+        y = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight) // creates random y coordinate
       
-        dementors.push(new gamePiece(250, height, 'DEMENTOR.png', x, 0, 'image')) 
-        dementors.push(new gamePiece(250, height, 'pngegg.png', x + 50, 0, 'image'))//makes upside down  obstacle
-        // dementors.push(new gamePiece(200, x - height - gap, 'pngegg.png', x, height + gap, 'image')) //NOT WORKING
-        
-    }
+        dementors.push(new gamePiece(250, 250, 'DEMENTOR.png', x, y, 'image')) 
+      }
     //MOVES OBSTACLES TOWARDS PLAYER
     for (i = 0; i < dementors.length; i+= 1) {
         dementors[i].x += -1
