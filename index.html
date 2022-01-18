@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Harry Potter</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header-img">
-        <img src="harry-logo.png" 
-        alt="harry-potter-logo" 
-        width="320" 
-        height="150"></div>
-    <div>
-        <canvas height = 1500 width = 600></canvas>
+      <img
+        src="harry-logo.png"
+        alt="harry-potter-logo"
+        width="320"
+        height="150"
+      />
     </div>
+    <div class="start">
+      <button class="startBtn">Start Game</button>
+    </div>
+    <button>Audio</button>
+    <span id="score">0</span>
+    <button id="reset">Start again</button>
+    <div id="canvas-container"></div>
 
-<div class ='start'>
-    <button class='startBtn'>Start Game</button>
-</div>
-<button> Audio</button>
-<span id='score'>0</span>
-<button id='reset'>Start again</button>
+    <!-- <audio src="theme-song.mp3"  class="audioBtn" autoplay loop></audio> -->
 
-           
-<!-- <audio src="theme-song.mp3"  class="audioBtn" autoplay loop></audio> -->
-
-
-<script src="app.js"></script>
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>
