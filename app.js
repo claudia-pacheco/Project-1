@@ -1,24 +1,39 @@
 const startBtn = document.querySelector('.startBtn')
 startBtn.addEventListener('click', game )
 
+const resetBtn = document.querySelector('#reset')
 const songAudio = document.querySelector("audioBtn") // grabs audio
+let score = document.querySelector('score') // grabs the score
 
 function game () {
+startBtn.style.display = 'none'
+
+resetBtn.style.display = 'inline'
+
 let harryPotter
 let dementors = []
 
+const dementorHeight = 260
+const dementorWidth = 300
+
 function startGame() {
-    harryPotter = new gamePiece(85, 85, 'harrypotter.png', 10, 120, 'image') // CREATES HARRY WITH PICTURE
+    harryPotter = new gamePiece(85, 85, 'harrypotter.png', 320, 120, 'image') // CREATES HARRY WITH PICTURE
     gameArea.start()
-    
 }
+
+function restartGame() {
+  // gameArea.canvas.clear()
+  console.log('clicked')
+}
+
+
 
 const gameArea = {
     canvas : document.querySelector('canvas'),
    // CREATES CANVAS
     start : function() {
         this.canvas.width = 1500
-        this.canvas.height = 500
+        this.canvas.height = 600
         this.context = this.canvas.getContext('2d')
         document.body.insertBefore(this.canvas, document.body.childNodes[0]),
         this.frameNo = 0
@@ -33,7 +48,6 @@ const gameArea = {
         clearInterval(this.interval);
   }
 }
-
 
 function gamePiece(width, height, color, x, y, type){
     this.type = type
@@ -59,10 +73,23 @@ function gamePiece(width, height, color, x, y, type){
         context.fillStyle = color
         context.fillRect(this.x, this.y, this.width, this.height)
     }}
-    // MOVES PIECE
+    // MOVES PIECE WITHIN CANVAS
     this.newPosition = function() {
         this.x += this.speedX;
         this.y += this.speedY;
+        if (this.x < 0){
+          this.x = 0
+        } 
+        if ((this.x + this.width) > gameArea.canvas.width){
+          this.x = gameArea.canvas.width - this.width
+        }
+        if (this.y < 0){
+          this.y = 0
+        }
+        if ((this.y + this.height) > gameArea.canvas.height){
+          this.y = gameArea.canvas.height - this.height
+        }
+
   }
     // CHECKS FOR COLLISION 
     this.collisionWith = function(obstacle) {
@@ -72,8 +99,8 @@ function gamePiece(width, height, color, x, y, type){
         const gamePieceTop = this.y + 20
         const gamePieceBottom = (this.y + (this.height)) - 20
 
-        const obstacleLeft = obstacle.x + 80
-        const obstacleRight = obstacle.x + (obstacle.width) - 80
+        const obstacleLeft = obstacle.x + 120
+        const obstacleRight = obstacle.x + (obstacle.width) - 100
         const obstacleTop = obstacle.y + 20
         const obstacleBottom = obstacle.y + (obstacle.height) - 30
     
@@ -102,10 +129,10 @@ function updateGameArea() {
     if (gameArea.frameNo == 1 || everyInterval(550)) {
         x = gameArea.canvas.width
         minHeight = 0
-        maxHeight = 450
-        y = Math.floor(Math.random()*(maxHeight-minHeight+1)+minHeight) // creates random y coordinate
+        maxHeight = gameArea.canvas.height - dementorHeight
+        y = Math.floor(Math.random()*(maxHeight)) // creates random y coordinate
       
-        dementors.push(new gamePiece(250, 250, 'DEMENTOR.png', x, y, 'image')) 
+        dementors.push(new gamePiece(dementorWidth, dementorHeight, 'DEMENTOR.png', x, y, 'image')) 
       }
     //MOVES OBSTACLES TOWARDS PLAYER
     for (i = 0; i < dementors.length; i+= 1) {
@@ -124,12 +151,12 @@ function everyInterval(n) {
 function handleKeydown(event) {
     // MOVES LEFT
   if (event.code === 'ArrowLeft') {
-    harryPotter.speedX = -5
-  }
-   // MOVES UP
+      harryPotter.speedX = -5
+    }
+   // MOVES  RIGHT
   if (event.code === 'ArrowRight') {
-    harryPotter.speedX = 5
-  }
+      harryPotter.speedX = 5
+    }
    // MOVES UP
   if (event.code === 'ArrowUp') {
     harryPotter.speedY = -5
@@ -142,26 +169,19 @@ function handleKeydown(event) {
 
 function handleKeyup(event) {
     // STOPS MOVING IN EITHER DIRECTION IF EITHER KEYS AREN'T PRESSED
-
-    //FIXED MOVING AROUND
-  if (event.code === 'ArrowLeft') {
+  if (event.code === 'ArrowLeft'|| event.code === 'ArrowRight') {
     harryPotter.speedX = 0
   }
-  if (event.code === 'ArrowRight') {
-    harryPotter.speedX = 0
-  }
-    if (event.code === 'ArrowUp') {
-    harryPotter.speedY = -0
-  }
-  if (event.code === 'ArrowDown') {
+  if (event.code === 'ArrowUp' || event.code === 'ArrowDown') {
     harryPotter.speedY = 0
   }
 }
 
 document.addEventListener('keydown', handleKeydown)
 document.addEventListener('keyup', handleKeyup)
+// resetBtn.addEventListener('click', restartGame)
+console.log(resetBtn)
+resetBtn.addEventListener('click', () => { console.log('clicked)')})
 
 startGame()
 }
-
-

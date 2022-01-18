@@ -3,12 +3,9 @@
   src: url(HARRYP__.TTF);
 }
 canvas {
-    /* border:1px solid #d3d3d3;
-    background-color: #f1f1f1; */
-position:absolute; 
- top:0;bottom:0;right:0;left:0; 
- margin:auto; 
-    
+    position:absolute; 
+    top:0;bottom:0;right:0;left:0; 
+    margin:auto; 
 }
 body {
     background: url('dis.png') no-repeat center center fixed;
@@ -25,7 +22,7 @@ aside {
     margin-right: 20px;
 }
 
-button{
+button, #score{
     
   box-sizing: border-box;
   background-color: transparent;
@@ -43,10 +40,25 @@ button{
   border-color: #1e2325;
   color: #fff;
   box-shadow: 0 0 40px 40px #1e2325 inset, 0 0 0 0 #1e2325;
+  
 }
-button:hover, button:focus {
+button:hover, button:focus, #score {
   color: #fff;
   outline: 0;
   box-shadow: 0 0 10px 0 #1e2325 inset, 0 0 10px 4px #1e2325;
 }
+#score {
+    margin-right: 0 auto;
+}
+.start{
+    margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 
+ #reset {
+display: none;
+}
