@@ -60,7 +60,20 @@ button:focus,
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+
 }
+.intro{
+    font-family: harryPotter;
+    font-size: 30px;
+    color:rgb(25, 33, 44);
+    text-shadow: 2px black;
+    align-items: center;
+    padding: 30px;
+    border: 1px solid black;
+    margin: 30px;
+    background: rgba(204, 204, 204, 0.5);
+    text-align: center;
+ }
 
 #reset {
   display: none;

@@ -4,7 +4,23 @@ startBtn.addEventListener('click', game) // STARTS GAME
 const resetBtn = document.querySelector('#reset')
 resetBtn.addEventListener('click', game.restart) //RESTARTS GAME 
 
-const songAudio = document.querySelector('audioBtn') 
+const intro = document.querySelector('.intro')
+
+const audioBtn = document.querySelector('.audioBtn') 
+const songAudio = new Audio('theme-song.mp3') // CREATES AUDIO FILE
+let isPlaying = false
+function togglePlay() {
+  // ALLOWS USER TO PLAY OR PAUSE MNUSIC
+  isPlaying ? songAudio.pause() : songAudio.play()
+}
+songAudio.onplaying = function() {
+  isPlaying = true
+}
+songAudio.onpause = function() {
+  isPlaying = false
+  songAudio.currentTime=0
+}
+audioBtn.addEventListener('click', togglePlay)
 
 const canvas = document.createElement('canvas') // CREATES CANVAS IN JS
 const canvasContainer = document.getElementById('canvas-container')
@@ -12,18 +28,15 @@ const canvasContainer = document.getElementById('canvas-container')
 let score = 0
 const scoreElement = document.querySelector('.score')
 
-
 function game() {
+  intro.style.display = 'none'
   startBtn.style.display = 'none'
   resetBtn.style.display = 'inline' //RESET BUTTON APPEARS
   resetBtn.addEventListener('click', restart)
 
-
   let harryPotter
   let dementors = []
   let goldenSnitches = []
-  
-  
 
   const dementorHeight = 240
   const dementorWidth = 280
@@ -193,11 +206,9 @@ function game() {
     }
     for (i = 0 ; i< goldenSnitches.length ; i += 1) {
       if (harryPotter.collisionWithSnitches(goldenSnitches[i])) {
-        goldenSnitches.pop(i) 
-        console.log('this' , i)
-        const newScore = score + 1
-        scoreElement.innerHTML = newScore
-        console.log(newScore)
+        goldenSnitches.splice(i, 1) 
+        score++
+        scoreElement.innerHTML = score
         return
       }
     }
@@ -250,11 +261,13 @@ function game() {
 
   function restart(){
     gameArea.clear()
-    clearInterval(updateGameArea)
-    clearInterval(generateObstaclesAndPoints)
-    clearInterval(movesObstaclesAndPoints)
     clearInterval(everyInterval)
-    // score = 0
+    
+    dementors.length = 0
+    goldenSnitches.length = 0
+    clearInterval(gameArea.interval)
+    score = 0
+    scoreElement.innerHTML = 0
     startGame()
   }
   
