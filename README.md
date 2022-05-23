@@ -1,5 +1,7 @@
 # Project 1 - Harry Potter Game 
 
+Play the game here: https://flying-harry-potter.netlify.app
+
 This is my first project for the General Assembly Software Engineering Immersive course. I used vanilla Javascript, HTML and CSS to create the game. The whole game was created using Canvas rather than a grid.
 
 
